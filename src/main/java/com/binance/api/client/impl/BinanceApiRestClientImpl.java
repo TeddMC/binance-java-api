@@ -133,10 +133,17 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
 
 	@Override
 	public void newOrderTest(NewOrder order) {
+		if (order.getQuoteOrderQty() == null) {
 		executeSync(binanceApiService.newOrderTest(order.getSymbol(), order.getSide(), order.getType(),
 				order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(),
 				order.getStopPrice(), order.getIcebergQty(), order.getNewOrderRespType(), order.getRecvWindow(),
 				order.getTimestamp()));
+		} else {
+		executeSync(binanceApiService.newOrderQuoteQtyTest(order.getSymbol(), order.getSide(), order.getType(),
+				order.getTimeInForce(), order.getQuoteOrderQty(), order.getPrice(), order.getNewClientOrderId(),
+				order.getStopPrice(), order.getIcebergQty(), order.getNewOrderRespType(), order.getRecvWindow(),
+				order.getTimestamp()));
+		}
 	}
 
 	// Account endpoints
